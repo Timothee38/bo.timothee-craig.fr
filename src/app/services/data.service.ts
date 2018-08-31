@@ -4,7 +4,7 @@ import { AppState } from '../models/index';
 
 import { Injectable } from '@angular/core';
 import { Observable, Subject, asapScheduler, pipe, of, from, interval, merge, fromEvent } from 'rxjs';
-import { map, filter, scan } from 'rxjs/operators';
+import { map, filter, scan, catchError } from 'rxjs/operators';
 
 
 @Injectable()
@@ -44,7 +44,7 @@ export class DataService {
     */
     public getAll<T>(url: string): Observable<T[]> {
         this.addHeaders();
-        return this.http.get(url, this.options).pipe(map(this.extractData)).catch(this.handleError);
+        return this.http.get(url, this.options).pipe(map(this.extractData),catchError(this.handleError));
     }
 
     /*
@@ -55,7 +55,7 @@ export class DataService {
     */
     public getSingle<T>(url: string, id: string): Observable<T> {
         this.addHeaders();
-        return this.http.get(url + "/" + id, this.options).pipe(map(this.extractData)).catch(this.handleError);
+        return this.http.get(url + "/" + id, this.options).pipe(map(this.extractData),catchError(this.handleError));
     }
 
     /*
@@ -67,7 +67,7 @@ export class DataService {
     public add<T>(url: string, item: T): Observable<T> {
         const toAdd = JSON.stringify(item);
         this.addHeaders();
-        return this.http.post(url, toAdd, this.options).pipe(map(this.extractData)).catch(this.handleError);
+        return this.http.post(url, toAdd, this.options).pipe(map(this.extractData),catchError(this.handleError));
     }
 
     /*
@@ -85,8 +85,8 @@ export class DataService {
             return true;
           }
           return false;
-        }))
-        .catch(this.handleError);
+        })
+        ,catchError(this.handleError));
     }
 
     /*
@@ -106,7 +106,7 @@ export class DataService {
             return true;
           }
           return false;
-        })).catch(this.handleError);
+        })),catchError(this.handleError));
     }
 
     /*
@@ -119,7 +119,7 @@ export class DataService {
     public update<T>(url: string, id: number, itemToUpdate: T): Observable<T> {
         this.addHeaders();
         return this.http
-            .put(url + "/" + id, JSON.stringify(itemToUpdate), this.options).map(this.extractData).catch(this.handleError);
+            .put(url + "/" + id, JSON.stringify(itemToUpdate), this.options).pipe(map(this.extractData),catchError(this.handleError));
     }
 
     /*
@@ -130,7 +130,7 @@ export class DataService {
     */
     public delete<T>(url: string, id: number): Observable<T> {
         this.addHeaders();
-        return this.http.delete(url + "/" + id, this.options).map(this.extractData).catch(this.handleError);
+        return this.http.delete(url + "/" + id, this.options).pipe(map(this.extractData),catchError(this.handleError));
     }
 
     /*
@@ -148,7 +148,7 @@ export class DataService {
             return true;
           }
           return false;
-        })).catch(this.handleError);
+        }),catchError(this.handleError));
     }
 
     /*

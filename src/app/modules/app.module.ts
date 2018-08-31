@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { ChartsModule } from 'ng2-charts';
+
 import { RouterModule, Routes, Router, ActivatedRoute } from '@angular/router';
 
 import { AppComponent } from '../components/app.component';
@@ -69,7 +71,8 @@ const appRoutes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    ChartsModule
   ],
   providers: [AuthGuard,
     AuthenticationService,
