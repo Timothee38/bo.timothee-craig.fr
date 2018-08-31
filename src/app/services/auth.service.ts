@@ -35,7 +35,7 @@ export class AuthenticationService {
   */
   login(username: string, password: string): Observable<boolean> {
     this.addHeaders();
-    return this.http.post(this.constants.userServiceAPIUrl + '/login', JSON.stringify({ username: username, password: password }), this.options)
+    return this.http.post(this.constants.apiURL + '/login', JSON.stringify({ username: username, password: password }), this.options)
       .pipe(map((res: Response) => {
         let token = res.headers.get("Authorization");
         if(token) {

@@ -47,6 +47,11 @@ export class DataService {
         return this.http.get(url, this.options).pipe(map(this.extractData),catchError(this.handleError));
     }
 
+    public getAllBy<T>(url: string, by: string): Observable<T[]> {
+      this.addHeaders();
+      return this.http.get(url + "/" + by, this.options).pipe(map(this.extractData), catchError(this.handleError));
+    }
+
     /*
     Performs a get operation on the rest api
     param url: the url on which to perform the get
