@@ -14,3 +14,29 @@
     </div>
   </div>
 </div>
+<br>
+<div class="card">
+  <div class="card-body">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h3>Frontpage</h3>
+    </div>
+    <alert></alert>
+  
+    <form name="form" (ngSubmit)="f.form.valid && updateFrontpage()" #f="ngForm" novalidate>
+      <div class="form-group">
+        <label for="bigtitle">Title</label>
+        <input type="text" class="form-control" id="bigtitle" placeholder="Page Title" name="bigTitle" [(ngModel)]="model.bigTitle" #bigTitle="ngModel" required readonly>
+      </div>
+      <div class="form-group">
+        <label for="enDesc">English Subtitle</label>
+        <input type="text" class="form-control" id="enDesc" name="enDesc" [(ngModel)]="model.enDesc" #enDesc="ngModel" required placeholder="English Subtitle">
+      </div>
+      <div class="form-group">
+        <label for="frDesc">French Subtitle</label>
+        <input type="text" class="form-control" id="frDesc" name="frDesc" [(ngModel)]="model.frDesc" #frDesc="ngModel" required placeholder="French Subtitle">
+      </div>
+      <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+  </div>
+</div>
+<br>

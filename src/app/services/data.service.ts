@@ -52,6 +52,11 @@ export class DataService {
       return this.http.get(url + "/" + by, this.options).pipe(map(this.extractData), catchError(this.handleError));
     }
 
+    public getOne<T>(url: string): Observable<T> {
+      this.addHeaders();
+      return this.http.get(url, this.options).pipe(map(this.extractData),catchError(this.handleError));
+    }
+
     /*
     Performs a get operation on the rest api
     param url: the url on which to perform the get
@@ -121,7 +126,7 @@ export class DataService {
     param itemToUpdate: the item of type T to update in the database
     returns: an observable of the item T
     */
-    public update<T>(url: string, id: number, itemToUpdate: T): Observable<T> {
+    public update<T>(url: string, id: any, itemToUpdate: T): Observable<T> {
         this.addHeaders();
         return this.http
             .put(url + "/" + id, JSON.stringify(itemToUpdate), this.options).pipe(map(this.extractData),catchError(this.handleError));

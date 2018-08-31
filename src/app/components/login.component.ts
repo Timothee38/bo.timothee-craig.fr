@@ -40,8 +40,8 @@ export class LoginComponent implements OnInit, OnDestroy {
                 },
                 error => {
                   console.log("error", error);
-                  this.alertService.error("An error occured while trying to log in.")
-                    this.loading = false;
+                  this.alertService.error("An error occured while trying to log in.");
+                  this.loading = false;
                 });
     }
 

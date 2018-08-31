@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { LogsCountObject } from "../../../models/index";
+import { LogsCountObject, Frontpage } from "../../../models/index";
 
-import { DataService } from "../../../services/index";
+import { DataService, AlertService } from "../../../services/index";
 
 import { Constants } from "../../../constants/app.constants";
 
@@ -12,10 +12,12 @@ import { Constants } from "../../../constants/app.constants";
 })
 export class ChartsComponent implements OnInit, OnDestroy {
 
+  model: Frontpage = new Frontpage();
+
   public lineChartData:Array<any> = [
-    {data: null, label: "Website visit count"})
+    {data: null, label: "Website visit count"}
   ];
-  public lineChartLabels:Array<any> = []; // TODO fill in
+  public lineChartLabels:Array<any> = [];
   public lineChartOptions:any = {
     responsive: true
   };
@@ -48,10 +50,11 @@ export class ChartsComponent implements OnInit, OnDestroy {
   public lineChartLegend:boolean = true;
   public lineChartType:string = 'line';
 
-  constructor(private dataService: DataService, private constants: Constants) {}
+  constructor(private dataService: DataService, private constants: Constants, private alertService: AlertService) {}
 
   ngOnInit(): void {
       this.loadChart();
+      this.loadFrontpage();
   }
 
   ngOnDestroy(): void {
@@ -59,7 +62,7 @@ export class ChartsComponent implements OnInit, OnDestroy {
   }
 
   loadChart(): void {
-    this.dataService.getAllBy<LogsCountObject>(this.constants.apiURL + "/logs", "1").subscribe(res => { this.handleChartsData(res, 1); }, err => {console.log(err);})
+    this.dataService.getAllBy<LogsCountObject>(this.constants.apiURL + "/logs", "1").subscribe(res => { this.handleChartsData(res, 1); }, err => {this.alertService.error("Error loading charts.");})
     // TODO later, implement other types of logs (unused for now)
   }
 
@@ -74,6 +77,18 @@ export class ChartsComponent implements OnInit, OnDestroy {
       this.lineChartData[0] = {data: data, label: "Website visit count"};
       this.lineChartLabels = labels;
     }
+  }
+
+  loadFrontpage(): void {
+    this.dataService.getOne<Frontpage>(this.constants.apiURL + "/frontpage").subscribe(res => {
+      this.model = res;
+    }, err => {console.log(err);});
+  }
+
+  updateFrontpage(): void {
+    console.log(this.model);
+    this.dataService.update<Frontpage>(this.constants.apiURL + "/frontpage", this.model.bigTitle, this.model)
+      .subscribe(res => { this.model = res; this.alertService.success("Update Successful."); }, err => { this.alertService.error("Error updating frontpage"); });
   }
 
 }
