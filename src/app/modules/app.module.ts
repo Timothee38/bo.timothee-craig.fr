@@ -1,11 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+import { FormsModule }   from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 import { RouterModule, Routes, Router, ActivatedRoute } from '@angular/router';
 
 import { AppComponent } from '../components/app.component';
 
 import { LoginComponent, SecuredComponent, ChartsComponent, ProjectsComponent, ImagesComponent, NotFoundComponent, UnauthorizedComponent } from '../components/index';
+
+import { AuthGuard } from '../guards/auth.guard';
+
+import { AuthenticationService, DataService } from "../services/index";
+
+import { AppState } from "../models/index";
+
+import { Constants } from "../constants/app.constants";
 
 /*
 Declares the routes for our application
@@ -18,7 +29,7 @@ unauthorized => called by the AuthGuard if the user is not allowed to access a r
 */
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'secured', component: SecuredComponent, children: [
+  { path: 'secured', component: SecuredComponent, canActivate: [AuthGuard], children: [
     {
       path: 'charts', component: ChartsComponent
     },
@@ -55,9 +66,16 @@ const appRoutes: Routes = [
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
-    BrowserModule
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    HttpModule
   ],
-  providers: [],
+  providers: [AuthGuard,
+    AuthenticationService,
+    AppState,
+    DataService,
+    Constants],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

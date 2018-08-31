@@ -1,16 +1,47 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, ViewContainerRef, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+
+import { AuthenticationService } from '../services/index';
 
 @Component({
-  selector: 'login',
-  templateUrl: '../templates/login.component.html',
-  styleUrls: ['../../assets/css/login.css']
+    selector: 'login',
+    templateUrl: '../templates/login.component.html',
+    styleUrls: ['../../assets/css/login.css']
 })
-export class LoginComponent {
-  
-    constructor() {
-        document.body.style.height = "100%";
-        document.body.style.background  = "#D9D6CA url('../assets/img/background.jpg') no-repeat center center fixed";
-        document.body.style.backgroundSize = "cover";
+
+export class LoginComponent implements OnInit, OnDestroy {
+    model: any = {};
+    loading = false;
+    returnUrl: string;
+
+    constructor(
+        private route: ActivatedRoute,
+        private router: Router,
+        private authenticationService: AuthenticationService) {
+          document.body.style.height = "100%";
+          document.body.style.background  = "#D9D6CA url('../assets/img/background.jpg') no-repeat center center fixed";
+          document.body.style.backgroundSize = "cover";
+        }
+
+    ngOnInit() {
+        // reset login status
+        this.authenticationService.logout();
+
+        // get return url from route parameters or default to '/'
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    }
+
+    login() {
+        this.loading = true;
+        this.authenticationService.login(this.model.username, this.model.password)
+            .subscribe(
+                data => {
+                    this.router.navigate(['/secured/charts']);
+                },
+                error => {
+                  console.log("error", error);
+                    this.loading = false;
+                });
     }
 
     ngOnDestroy() {

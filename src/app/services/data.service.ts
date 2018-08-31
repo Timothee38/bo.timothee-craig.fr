@@ -1,14 +1,10 @@
-import 'rxjs/add/operator/map';
-
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 
 import { AppState } from '../models/index';
 
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/throw';
+import { Observable, Subject, asapScheduler, pipe, of, from, interval, merge, fromEvent } from 'rxjs';
+import { map, filter, scan } from 'rxjs/operators';
 
 
 @Injectable()
@@ -48,7 +44,7 @@ export class DataService {
     */
     public getAll<T>(url: string): Observable<T[]> {
         this.addHeaders();
-        return this.http.get(url, this.options).map(this.extractData).catch(this.handleError);
+        return this.http.get(url, this.options).pipe(map(this.extractData)).catch(this.handleError);
     }
 
     /*
@@ -59,7 +55,7 @@ export class DataService {
     */
     public getSingle<T>(url: string, id: string): Observable<T> {
         this.addHeaders();
-        return this.http.get(url + "/" + id, this.options).map(this.extractData).catch(this.handleError);
+        return this.http.get(url + "/" + id, this.options).pipe(map(this.extractData)).catch(this.handleError);
     }
 
     /*
@@ -71,7 +67,7 @@ export class DataService {
     public add<T>(url: string, item: T): Observable<T> {
         const toAdd = JSON.stringify(item);
         this.addHeaders();
-        return this.http.post(url, toAdd, this.options).map(this.extractData).catch(this.handleError);
+        return this.http.post(url, toAdd, this.options).pipe(map(this.extractData)).catch(this.handleError);
     }
 
     /*
@@ -84,12 +80,12 @@ export class DataService {
       const toAdd = JSON.stringify(item);
       this.addHeaders();
       return this.http.post(url, toAdd, this.options)
-        .map((res: Response) => {
+        .pipe(map((res: Response) => {
           if((200<=res.status)&&(res.status<300)) {
             return true;
           }
           return false;
-        })
+        }))
         .catch(this.handleError);
     }
 
@@ -104,13 +100,13 @@ export class DataService {
       const toAdd = JSON.stringify(itemToUpdate);
       this.addHeaders();
       return this.http.put(url + "/" + id, toAdd, this.options)
-        .map((res: Response) => {
+        .pipe(map(((res: Response) => {
           // console.log(res);
           if((200<=res.status)&&(res.status<300)) {
             return true;
           }
           return false;
-        }).catch(this.handleError);
+        })).catch(this.handleError);
     }
 
     /*
@@ -146,13 +142,13 @@ export class DataService {
     public deleteReturnsStatus(url: string, id: string) : Observable<boolean> {
       this.addHeaders();
       return this.http.delete(url + "/" + id, this.options)
-        .map((res: Response) => {
+        .pipe(map((res: Response) => {
           // console.log(res);
           if((200<=res.status)&&(res.status<300)) {
             return true;
           }
           return false;
-        }).catch(this.handleError);
+        })).catch(this.handleError);
     }
 
     /*
