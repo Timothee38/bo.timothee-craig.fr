@@ -1,17 +1,17 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
   <h1 class="h2">Charts and Frontpage</h1>
 </div>
-<div class="row">
-  <div class="col-md-12">
-    <div style="display: block;">
-    <canvas baseChart width="400" height="200"
-                [datasets]="lineChartData"
-                [labels]="lineChartLabels"
-                [options]="lineChartOptions"
-                [colors]="lineChartColors"
-                [legend]="lineChartLegend"
-                [chartType]="lineChartType"></canvas>
-    </div>
+  <div class="card">
+    <div class="card-body">
+      <div style="display: block;">
+      <canvas baseChart width="400" height="200"
+                  [datasets]="lineChartData"
+                  [labels]="lineChartLabels"
+                  [options]="lineChartOptions"
+                  [colors]="lineChartColors"
+                  [legend]="lineChartLegend"
+                  [chartType]="lineChartType"></canvas>
+      </div>
   </div>
 </div>
 <br>
@@ -21,7 +21,7 @@
       <h3>Frontpage</h3>
     </div>
     <alert></alert>
-  
+
     <form name="form" (ngSubmit)="f.form.valid && updateFrontpage()" #f="ngForm" novalidate>
       <div class="form-group">
         <label for="bigtitle">Title</label>

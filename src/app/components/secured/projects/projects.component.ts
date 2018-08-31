@@ -10,7 +10,7 @@ import { Constants } from "../../../constants/app.constants";
   selector: 'projects-component',
   templateUrl: '../../../templates/secured/projects/projects.component.html',
 })
-export class ProjectsComponent {
+export class ProjectsComponent implements OnInit, OnDestroy {
 
   projects: Project[];
 

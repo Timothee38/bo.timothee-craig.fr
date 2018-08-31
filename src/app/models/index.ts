@@ -4,3 +4,4 @@ export { LogsCountObject } from "./logscountobject";
 export { Frontpage } from "./frontpage";
 export { Contact } from "./contact";
 export { Project } from "./projects";
+export { Image } from "./images";
