@@ -6,3 +6,5 @@ export { ImagesComponent } from './secured/images/images.component';
 export { NotFoundComponent } from './error/notfound.component';
 export { UnauthorizedComponent } from './error/unauthorized.component';
 export { AlertComponent } from "./alert.component";
+export { ContactComponent } from "./secured/projects/contact.component";
+export { ProjectsContactComponent } from "./secured/projects/pc.component"; 

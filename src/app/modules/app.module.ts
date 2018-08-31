@@ -10,7 +10,16 @@ import { RouterModule, Routes, Router, ActivatedRoute } from '@angular/router';
 
 import { AppComponent } from '../components/app.component';
 
-import { AlertComponent, LoginComponent, SecuredComponent, ChartsComponent, ProjectsComponent, ImagesComponent, NotFoundComponent, UnauthorizedComponent } from '../components/index';
+import { AlertComponent,
+  LoginComponent,
+  SecuredComponent,
+  ChartsComponent,
+  ProjectsComponent,
+  ImagesComponent,
+  NotFoundComponent,
+  ProjectsContactComponent,
+  ContactComponent,
+  UnauthorizedComponent } from '../components/index';
 
 import { AuthGuard } from '../guards/auth.guard';
 
@@ -38,7 +47,7 @@ const appRoutes: Routes = [
       path: 'charts', component: ChartsComponent
     },
     {
-      path: 'projects', component: ProjectsComponent
+      path: 'projects', component: ProjectsContactComponent
     },
     {
       path: 'images', component: ImagesComponent
@@ -65,6 +74,8 @@ const appRoutes: Routes = [
     LoginComponent,
     SecuredComponent,
     ChartsComponent,
+    ProjectsContactComponent,
+    ContactComponent,
     ProjectsComponent,
     ImagesComponent, NotFoundComponent, UnauthorizedComponent,
     AlertComponent

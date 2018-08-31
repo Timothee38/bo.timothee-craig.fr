@@ -1,27 +1,23 @@
 <div class="card">
   <div class="card-body">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-      <h3>Projects</h3>
+      <h3>Contacts</h3>
     </div>
     <table class="table">
       <thead class="thead-dark">
         <tr>
           <th scope="col">French Title</th>
           <th scope="col">English Title</th>
-          <th scope="col">French Description</th>
-          <th scope="col">English Description</th>
           <th scope="col">Link</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let project of projects">
-          <td>{{ project?.frTitle }}</td>
-          <td>{{ project?.enTitle }}</td>
-          <td>{{ project?.frDesc }}</td>
-          <td>{{ project?.enDesc }}</td>
-          <td>{{ project?.link }}</td>
-          <td>{{ project?.id }}</td>
+        <tr *ngFor="let contact of contacts">
+          <td scope="row">{{ contact?.frTitle }}</td>
+          <td>{{ contact?.enTitle }}</td>
+          <td>{{ contact?.link }}</td>
+          <td>{{ contact?.id }}</td>
         </tr>
       </tbody>
     </table>
