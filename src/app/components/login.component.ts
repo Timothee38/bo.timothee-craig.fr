@@ -1,7 +1,7 @@
 import { Component, ViewContainerRef, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { AuthenticationService } from '../services/index';
+import { AuthenticationService, AlertService } from '../services/index';
 
 @Component({
     selector: 'login',
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private authenticationService: AuthenticationService) {
+        private authenticationService: AuthenticationService, private alertService: AlertService) {
           document.body.style.height = "100%";
           document.body.style.background  = "#D9D6CA url('../assets/img/background.jpg') no-repeat center center fixed";
           document.body.style.backgroundSize = "cover";
@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                 },
                 error => {
                   console.log("error", error);
+                  this.alertService.error("An error occured while trying to log in.")
                     this.loading = false;
                 });
     }

@@ -102,3 +102,9 @@ body {
 .timotheecraig-pointer {
   cursor: pointer;
 }
+
+.timotheecraig-notification {
+  margin: auto;
+  width: 50%;
+  margin-top: 10px;
+}

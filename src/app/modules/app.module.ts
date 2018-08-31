@@ -10,11 +10,13 @@ import { RouterModule, Routes, Router, ActivatedRoute } from '@angular/router';
 
 import { AppComponent } from '../components/app.component';
 
-import { LoginComponent, SecuredComponent, ChartsComponent, ProjectsComponent, ImagesComponent, NotFoundComponent, UnauthorizedComponent } from '../components/index';
+import { AlertComponent, LoginComponent, SecuredComponent, ChartsComponent, ProjectsComponent, ImagesComponent, NotFoundComponent, UnauthorizedComponent } from '../components/index';
 
 import { AuthGuard } from '../guards/auth.guard';
 
 import { AuthenticationService, DataService } from "../services/index";
+
+import { AlertService } from '../services/index';
 
 import { AppState } from "../models/index";
 
@@ -64,7 +66,8 @@ const appRoutes: Routes = [
     SecuredComponent,
     ChartsComponent,
     ProjectsComponent,
-    ImagesComponent, NotFoundComponent, UnauthorizedComponent
+    ImagesComponent, NotFoundComponent, UnauthorizedComponent,
+    AlertComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -76,6 +79,7 @@ const appRoutes: Routes = [
   ],
   providers: [AuthGuard,
     AuthenticationService,
+    AlertService,
     AppState,
     DataService,
     Constants],

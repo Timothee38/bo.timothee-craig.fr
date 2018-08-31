@@ -5,3 +5,4 @@ export { ProjectsComponent } from './secured/projects/projects.component';
 export { ImagesComponent } from './secured/images/images.component';
 export { NotFoundComponent } from './error/notfound.component';
 export { UnauthorizedComponent } from './error/unauthorized.component';
+export { AlertComponent } from "./alert.component";

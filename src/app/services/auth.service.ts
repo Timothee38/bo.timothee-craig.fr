@@ -37,7 +37,7 @@ export class AuthenticationService {
     this.addHeaders();
     return this.http.post(this.constants.userServiceAPIUrl + '/login', JSON.stringify({ username: username, password: password }), this.options)
       .pipe(map((res: Response) => {
-        let token = res.headers.get("Authorization").replace("Bearer ", "");
+        let token = res.headers.get("Authorization");
         if(token) {
           this.token = token;
           localStorage.setItem('currentUser', JSON.stringify({ token: token }));
