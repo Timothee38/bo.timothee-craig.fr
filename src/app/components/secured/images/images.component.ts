@@ -40,16 +40,20 @@ export class ImagesComponent implements OnInit, OnDestroy {
   }
 
   delete(id: number): void {
-    console.log(id);
+    this.dataService.deleteReturnsStatus(this.constants.apiURL + "/images", id)
+      .subscribe(res => {
+        if(res) {
+          this.loadImages();
+          this.alertService.success("Image deletion success");
+        } else {
+          this.alertService.error("Image deletion error");
+        }
+      }, err=> {this.alertService.error("Image deletion error");});
   }
 
   showModal(content:any, path: string): void {
     this.path = this.imagePath + path;
     this.modalService.open(content);
-  }
-
-  closeModal(): void {
-
   }
 
   fileChange(event) {
@@ -67,8 +71,5 @@ export class ImagesComponent implements OnInit, OnDestroy {
     }
   }
 
-  upload(): void {
-    console.log(this.myFile);
-  }
 
 }

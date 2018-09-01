@@ -177,7 +177,7 @@ export class DataService {
     param id: the identifier of the object to delete
     returns: true if deleted
     */
-    public deleteReturnsStatus(url: string, id: string) : Observable<boolean> {
+    public deleteReturnsStatus(url: string, id: any) : Observable<boolean> {
       this.addHeaders();
       return this.http.delete(url + "/" + id, this.options)
         .pipe(map((res: Response) => {
