@@ -37,7 +37,7 @@
           <td scope="row">{{ contact?.frTitle }}</td>
           <td>{{ contact?.enTitle }}</td>
           <td><a target="_blank" rel="noopener noreferrer" href="{{contact?.link}}">{{ contact?.link }}</a></td>
-          <td>{{ contact?.id }} <i class="fas fa-times"></i></td>
+          <td><a class="timotheecraig-gray-hover timotheecraig-pointer" (click)="delete(contact?.id)"><i class="fas fa-times"></i></a></td>
         </tr>
       </tbody>
     </table>

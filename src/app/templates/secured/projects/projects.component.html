@@ -51,7 +51,7 @@
           <td>{{ project?.frDesc }}</td>
           <td>{{ project?.enDesc }}</td>
           <td><a target="_blank" rel="noopener noreferrer" href="{{project?.link}}">{{ project?.link }}</a></td>
-          <td>{{ project?.id }} <i class="fas fa-times"></i>&nbsp;&nbsp;<i class="fas fa-edit"></i></td>
+          <td><a class="timotheecraig-gray-hover timotheecraig-pointer" (click)="delete(project?.id)"><i class="fas fa-times"></i></a></td>
         </tr>
       </tbody>
     </table>

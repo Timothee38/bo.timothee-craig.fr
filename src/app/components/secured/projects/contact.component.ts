@@ -41,4 +41,16 @@ export class ContactComponent implements OnInit, OnDestroy {
       , err => {this.alertService.error("Error adding contacts");});
   }
 
+  delete(id: number): void {
+    this.dataService.deleteReturnsStatus(this.constants.apiURL + "/contact", id)
+      .subscribe(res => {
+        if(res) {
+          this.loadContacts();
+          this.alertService.success("Contact deletion success");
+        } else {
+          this.alertService.error("Contact deletion error");
+        }
+      }, err=> {this.alertService.error("Contact deletion error");});
+  }
+
 }

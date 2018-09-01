@@ -41,4 +41,16 @@ export class ProjectsComponent implements OnInit, OnDestroy {
       , err => {this.alertService.error("Error adding projects");});
   }
 
+  delete(id: number): void {
+    this.dataService.deleteReturnsStatus(this.constants.apiURL + "/projects", id)
+      .subscribe(res => {
+        if(res) {
+          this.loadProjects();
+          this.alertService.success("Project deletion success");
+        } else {
+          this.alertService.error("Project deletion error");
+        }
+      }, err=> {this.alertService.error("Project deletion error");});
+  }
+
 }
