@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 
 import { DataService, AlertService } from "../../../services/index";
 
@@ -14,6 +14,9 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
   providers: [NgbModalConfig, NgbModal]
 })
 export class ImagesComponent implements OnInit, OnDestroy {
+  @ViewChild('myInput')
+  myInputVariable: ElementRef;
+
   images: Image[];
   imagePath: string = "http://localhost:3000/img/";
 
@@ -47,6 +50,21 @@ export class ImagesComponent implements OnInit, OnDestroy {
 
   closeModal(): void {
 
+  }
+
+  fileChange(event) {
+    let fileList: FileList = event.target.files;
+    if(fileList.length > 0) {
+        let file: File = fileList[0];
+        let formData:FormData = new FormData();
+        formData.append('file', file);
+        this.dataService.uploadFile<Image>(this.constants.apiURL + "/images", formData)
+          .subscribe(res => {
+            this.alertService.success('File uploaded.');
+            this.myInputVariable.nativeElement.value = "";
+            this.loadImages();
+          });
+    }
   }
 
   upload(): void {

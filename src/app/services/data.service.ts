@@ -38,6 +38,26 @@ export class DataService {
     }
 
     /*
+      Headers for file
+    */
+    addHeadersForFileUpload() : void {
+      this.headers = new Headers();
+      this.headers.append('enctype', 'multipart/form-data');
+      this.headers.append('Accept', 'application/json');
+      this.headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE, PUT');
+      this.headers.append('Access-Control-Allow-Origin', '*');
+      this.headers.append('Access-Control-Allow-Headers', "X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Accept-Encoding");
+      this.headers.append('Access-Control-Expose-Headers', 'Authorization');
+      // console.log("data service", this.appstate);
+      if(this.appstate.isAuthentificated) {
+        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        // console.log("IN THE Authorization THINGY", currentUser.token);
+        this.headers.append("Authorization", currentUser.token);
+      }
+      this.options = new RequestOptions({ headers: this.headers });
+    }
+
+    /*
     Performs a get operation on the rest api
     param url: the url on which to perform the get
     returns: an observable of the item T
@@ -78,6 +98,14 @@ export class DataService {
         const toAdd = JSON.stringify(item);
         this.addHeaders();
         return this.http.post(url, toAdd, this.options).pipe(map(this.extractData),catchError(this.handleError));
+    }
+
+    /*
+    File uploader
+     */
+    public uploadFile<T>(url: string, data: any): Observable<T> {
+      this.addHeadersForFileUpload();
+      return this.http.post(url, data, this.options).pipe(map(this.extractData), catchError(this.handleError));
     }
 
     /*
