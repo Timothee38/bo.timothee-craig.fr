@@ -5,6 +5,13 @@
       <h3>Images</h3>
     </div>
     <alert></alert>
+    <form>
+      <div class="form-group">
+        <label for="fileUpload">Upload :</label>
+        <input type="file" class="form-control-file" id="fileUpload"><br>
+        <button type="submit" class="btn btn-primary">Upload</button>
+      </div>
+    </form>
     <table class="table">
       <thead class="thead-dark">
         <tr>
@@ -14,10 +21,19 @@
       </thead>
       <tbody>
         <tr *ngFor="let image of images">
-          <td>{{ image?.path }}</td>
-          <td>{{ image?.id }}</td>
+          <td><a (click)="showModal(content, image?.path)">View {{ image?.path }}</a></td>
+          <td><a class="timotheecraig-delete-cross timotheecraig-pointer" (click)="delete(image?.id)">&times;</a></td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-body">
+    <img src="{{path}}" width="466">
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c()">Close</button>
+  </div>
+</ng-template>

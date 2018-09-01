@@ -114,6 +114,15 @@ body {
            animation: fadein 1s;
 }
 
+.timotheecraig-delete-cross {
+  font-size: 1.4em;
+  font-weight: bold;
+}
+
+.timotheecraig-delete-cross:hover {
+  color: #b2b2b2 !important;  
+}
+
 @keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }

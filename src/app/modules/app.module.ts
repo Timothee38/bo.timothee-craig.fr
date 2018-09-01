@@ -6,6 +6,8 @@ import { HttpModule } from '@angular/http';
 
 import { ChartsModule } from 'ng2-charts';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 import { RouterModule, Routes, Router, ActivatedRoute } from '@angular/router';
 
 import { AppComponent } from '../components/app.component';
@@ -86,7 +88,8 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
-    ChartsModule
+    ChartsModule,
+    NgbModule.forRoot()
   ],
   providers: [AuthGuard,
     AuthenticationService,
