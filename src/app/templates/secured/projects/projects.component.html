@@ -51,10 +51,53 @@
           <td>{{ project?.frDesc }}</td>
           <td>{{ project?.enDesc }}</td>
           <td><a target="_blank" rel="noopener noreferrer" href="{{project?.link}}">{{ project?.link }}</a></td>
-          <td><a class="timotheecraig-gray-hover timotheecraig-pointer" (click)="delete(project?.id)"><i class="fas fa-times"></i></a></td>
+          <td><a class="timotheecraig-gray-hover timotheecraig-pointer" (click)="delete(project?.id)"><i class="fas fa-times"></i></a>&nbsp;&nbsp;<a class="timotheecraig-gray-hover timotheecraig-pointer" (click)="showModal(content, project)"><i class="fas fa-edit"></i></a></td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
 <br>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Updating Project</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form name="formEdit" (ngSubmit)="f.form.valid && edit()"  #f="ngForm">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="frTitle">French Title</label>
+          <input type="text" class="form-control" id="frTitle" placeholder="French title" maxlength="100" name="frTitle" [(ngModel)]="modelEdit.frTitle" #frTitle="ngModel" required>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="enTitle">English Title</label>
+          <input type="text" class="form-control" id="enTitle" placeholder="English title" maxlength="100" name="enTitle" [(ngModel)]="modelEdit.enTitle" #enTitle="ngModel" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="frTitle">French Description</label>
+          <input type="text" class="form-control" id="frDesc" placeholder="French description" maxlength="200" name="frDesc" [(ngModel)]="modelEdit.frDesc" #frDesc="ngModel" required>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="enDesc">English Description</label>
+          <input type="text" class="form-control" id="enDesc" placeholder="English description" maxlength="200" name="enDesc" [(ngModel)]="modelEdit.enDesc" #enDesc="ngModel" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="link">Link</label>
+          <input type="text" class="form-control" id="link" placeholder="URL/Link..." maxlength="100"  name="link" [(ngModel)]="modelEdit.link" #link="ngModel">
+        </div>
+      </div>
+      <button [disabled]="f.form.invalid || disableBtnEdit" type="submit" class="btn btn-primary">Edit</button>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c()">Close</button>
+  </div>
+</ng-template>

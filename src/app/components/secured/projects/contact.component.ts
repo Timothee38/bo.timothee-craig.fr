@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { DataService, AlertService } from "../../../services/index";
 
+import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { Contact } from "../../../models/index";
 
 import { Constants } from "../../../constants/app.constants";
@@ -9,16 +11,19 @@ import { Constants } from "../../../constants/app.constants";
 @Component({
   selector: 'contact-component',
   templateUrl: '../../../templates/secured/projects/contact.component.html',
+  providers: [NgbModalConfig, NgbModal]
 })
 export class ContactComponent implements OnInit, OnDestroy {
 
   contacts: Contact[];
 
   disableBtn: boolean = false;
+  disableBtnEdit: boolean = false;
 
   model: Contact = new Contact();
+  modelEdit: Contact = new Contact();
 
-  constructor(private dataService: DataService, private alertService: AlertService, private constants: Constants) {}
+  constructor(private dataService: DataService, private alertService: AlertService, private constants: Constants, config: NgbModalConfig, private modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.loadContacts();
@@ -51,6 +56,19 @@ export class ContactComponent implements OnInit, OnDestroy {
           this.alertService.error("Contact deletion error");
         }
       }, err=> {this.alertService.error("Contact deletion error");});
+  }
+
+  showModal(content:any, contactToEdit: Contact): void {
+    this.modelEdit = contactToEdit;
+    this.modalService.open(content);
+  }
+
+  edit(): void {
+    this.disableBtnEdit = true;
+    this.dataService.update<Contact>(this.constants.apiURL + "/contact", this.modelEdit.id, this.modelEdit)
+      .subscribe(res => { this.disableBtnEdit = false; this.loadContacts(); this.modalService.dismissAll(); this.alertService.success("Contact edition success"); },
+                 err => { this.disableBtnEdit = false; this.modalService.dismissAll(); this.alertService.error("Contact edition error"); });
+
   }
 
 }
