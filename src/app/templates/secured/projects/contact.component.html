@@ -3,7 +3,27 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
       <h3>Contacts</h3>
     </div>
-    <table class="table">
+    <form name="form" (ngSubmit)="f.form.valid && addContact()"  #f="ngForm">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="frTitle">French Title</label>
+          <input type="text" class="form-control" id="frTitle" placeholder="French title" maxlength="100" name="frTitle" [(ngModel)]="model.frTitle" #frTitle="ngModel" required>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="enTitle">English Title</label>
+          <input type="text" class="form-control" id="enTitle" placeholder="English title" maxlength="100" name="enTitle" [(ngModel)]="model.enTitle" #enTitle="ngModel" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="link">Link</label>
+          <input type="text" class="form-control" id="link" placeholder="URL/Link..." maxlength="100"  name="link" [(ngModel)]="model.link" #link="ngModel">
+        </div>
+      </div>
+      <button [disabled]="f.form.invalid" type="submit" class="btn btn-primary">Add</button>
+    </form>
+    <br>
+    <table class="table table-bordered">
       <thead class="thead-dark">
         <tr>
           <th scope="col">French Title</th>
@@ -16,8 +36,8 @@
         <tr *ngFor="let contact of contacts">
           <td scope="row">{{ contact?.frTitle }}</td>
           <td>{{ contact?.enTitle }}</td>
-          <td>{{ contact?.link }}</td>
-          <td>{{ contact?.id }}</td>
+          <td><a target="_blank" rel="noopener noreferrer" href="{{contact?.link}}">{{ contact?.link }}</a></td>
+          <td>{{ contact?.id }} <i class="fas fa-times"></i>&nbsp;&nbsp;<i class="fas fa-edit"></i></td>
         </tr>
       </tbody>
     </table>

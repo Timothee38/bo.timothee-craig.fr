@@ -7,11 +7,11 @@
     <alert></alert>
     <form>
       <div class="form-group">
-        <label for="fileUpload">Upload : </label>
+        <label for="fileUpload">Upload :&nbsp;</label>
         <input #myInput id="fileUpload" type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".jpg">
       </div>
     </form>
-    <table class="table">
+    <table class="table table-bordered">
       <thead class="thead-dark">
         <tr>
           <th scope="col">Path</th>
@@ -20,8 +20,8 @@
       </thead>
       <tbody>
         <tr *ngFor="let image of images">
-          <td><a class="timotheecraig-pointer" (click)="showModal(content, image?.path)">View {{ image?.path }}</a></td>
-          <td><a class="timotheecraig-delete-cross timotheecraig-pointer" (click)="delete(image?.id)">&times;</a></td>
+          <td><a class="timotheecraig-gray-hover timotheecraig-pointer" (click)="showModal(content, image?.path)">View {{ image?.path }}</a></td>
+          <td><a class="timotheecraig-gray-hover timotheecraig-pointer" (click)="delete(image?.id)"><i class="fas fa-times"></i></a></td>
         </tr>
       </tbody>
     </table>

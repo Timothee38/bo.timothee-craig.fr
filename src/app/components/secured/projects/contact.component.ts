@@ -14,6 +14,10 @@ export class ContactComponent implements OnInit, OnDestroy {
 
   contacts: Contact[];
 
+  disableBtn: boolean = false;
+
+  model: Contact = new Contact();
+
   constructor(private dataService: DataService, private alertService: AlertService, private constants: Constants) {}
 
   ngOnInit(): void {
@@ -26,7 +30,15 @@ export class ContactComponent implements OnInit, OnDestroy {
 
   loadContacts(): void {
     this.dataService.getAll<Contact>(this.constants.apiURL + "/contact")
-      .subscribe(res => { this.contacts = res; }, err => {this.alertService.error("Error loading contacts");})
+      .subscribe(res => { this.contacts = res; }, err => {this.alertService.error("Error loading contacts");});
+  }
+
+  addContact(): void {
+    this.disableBtn = true;
+    this.dataService.add<Contact>(this.constants.apiURL + "/contact", this.model)
+      .subscribe(
+        res => {this.loadContacts(); this.model = new Contact(); this.disableBtn = false; this.alertService.success("Added contact.");}
+      , err => {this.alertService.error("Error loading contacts");});
   }
 
 }
