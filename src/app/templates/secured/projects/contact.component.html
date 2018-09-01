@@ -20,7 +20,7 @@
           <input type="text" class="form-control" id="link" placeholder="URL/Link..." maxlength="100"  name="link" [(ngModel)]="model.link" #link="ngModel">
         </div>
       </div>
-      <button [disabled]="f.form.invalid" type="submit" class="btn btn-primary">Add</button>
+      <button [disabled]="f.form.invalid || disableBtn" type="submit" class="btn btn-primary">Add</button>
     </form>
     <br>
     <table class="table table-bordered">
@@ -37,10 +37,12 @@
           <td scope="row">{{ contact?.frTitle }}</td>
           <td>{{ contact?.enTitle }}</td>
           <td><a target="_blank" rel="noopener noreferrer" href="{{contact?.link}}">{{ contact?.link }}</a></td>
-          <td>{{ contact?.id }} <i class="fas fa-times"></i>&nbsp;&nbsp;<i class="fas fa-edit"></i></td>
+          <td>{{ contact?.id }} <i class="fas fa-times"></i></td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
 <br>
+
+<!-- edit for later: &nbsp;&nbsp;<i class="fas fa-edit"></i>-->

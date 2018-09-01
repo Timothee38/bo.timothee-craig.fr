@@ -38,7 +38,7 @@ export class ContactComponent implements OnInit, OnDestroy {
     this.dataService.add<Contact>(this.constants.apiURL + "/contact", this.model)
       .subscribe(
         res => {this.loadContacts(); this.model = new Contact(); this.disableBtn = false; this.alertService.success("Added contact.");}
-      , err => {this.alertService.error("Error loading contacts");});
+      , err => {this.alertService.error("Error adding contacts");});
   }
 
 }
