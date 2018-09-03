@@ -1,3 +1,3 @@
 export class Constants {
-  public apiURL: string = "http://localhost:8080";
+  public apiURL: string = "https://api.timothee-craig.fr";
 }

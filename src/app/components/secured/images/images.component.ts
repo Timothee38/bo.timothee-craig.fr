@@ -18,7 +18,7 @@ export class ImagesComponent implements OnInit, OnDestroy {
   myInputVariable: ElementRef;
 
   images: Image[];
-  imagePath: string = "http://localhost:3000/img/";
+  imagePath: string = "http://fo.timothee-craig.fr/img/";
 
   myFile: any = {};
 
